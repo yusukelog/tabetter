@@ -1,0 +1,48 @@
+// ベースカラー
+$primary:#FFAD36;
+
+// import
+@import "~bootstrap/scss/bootstrap";
+@import "sticky-footer";
+
+// 背景
+.bg-custom{
+  background-color: $primary;
+}
+
+a.text-light:focus,
+a.text-light:hover {
+  color: #fff !important;
+}
+
+// ロゴ
+#logo{
+  h1{
+    line-height: 1 !important;
+    a{
+      &:hover{
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+// ログイン
+#loginform{
+  max-width: 420px;
+}
+
+@include media-breakpoint-down(xs){
+  #logo{
+    h1{
+      font-size: 2rem;
+    }
+    small{
+      font-size: 0.5rem;
+    }
+  }
+  .fa-cog,
+  .fa-sign-out-alt{
+    font-size: 1.5rem;
+  }
+}
