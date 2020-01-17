@@ -1,0 +1,19 @@
+#logo {
+  line-height: 1!important
+}
+#logo a:hover {
+  text-decoration: none
+}
+@media (max-width:575.98px) {
+  #logo {
+    font-size: 2rem
+  }
+}
+.bg-custom {
+  background-color: #ffad36
+}
+a.text-light:focus,
+a.text-light:hover {
+  color: #fff!important
+}
+/*# sourceMappingURL=custom.css.map */
