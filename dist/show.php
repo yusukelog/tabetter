@@ -8,7 +8,9 @@
                 <h5><i class="far fa-list-alt mr-2"></i>履歴一覧</h5>
                 <div>
                     <div class="border-bottom">
-                        <h6 class="bg-secondary text-light px-3 py-2"><i class="far fa-calendar-alt mr-2"></i>2020年01月08日</h6>
+                        <h6 class="bg-secondary text-center text-light px-3 py-2">
+                            <i class="far fa-calendar-alt mr-2"></i>2020年01月08日
+                        </h6>
                         <div class="p-3">
                             <div class="row justify-content-between">
                                 <div class="col-4">

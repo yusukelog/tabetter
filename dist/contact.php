@@ -7,13 +7,13 @@
             <div class="mb-5">
                 <h5 class="border-bottom mb-3 pb-2">お問合せ</h5>
                 <div class="row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-5">
                         <label>お名前 (必須)</label>
                         <input type="text" class="form-control">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-5">
                         <label>メールアドレス (必須)</label>
                         <input type="text" class="form-control">
                     </div>
