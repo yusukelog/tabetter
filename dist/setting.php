@@ -79,7 +79,7 @@
             <div class="mb-5">
                 <h5 class="border-bottom mb-3 pb-2">お問合せ</h5>
                 <div class="form-group">
-                    <a class="btn btn-primary text-light px-4" type="submit">お問合せフォームへ</a>
+                    <a href="contact.php" class="btn btn-primary text-light px-4" type="submit">お問合せフォームへ</a>
                 </div>
             </div>
         </div>
