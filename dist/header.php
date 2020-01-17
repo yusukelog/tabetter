@@ -6,7 +6,7 @@
                 <h1><a href="/" class="text-light">Tabetter</a></h1>
             </div>
             <nav class="my-2 my-sm-0 mr-sm-3">
-                <a class="p-2 text-light" href="#">
+                <a class="p-2 text-light" href="setting.php">
                     <i class="fas fa-cog mr-1"></i>
                     <span class="d-none d-sm-inline">設定</span>
                 </a>
