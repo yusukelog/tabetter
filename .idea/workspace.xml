@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2da122fc-d0d3-40cf-81d2-0cde33c8ec7e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/dist/regist_confirm.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/dist/create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/head.php" beforeDir="false" afterPath="$PROJECT_DIR$/dist/head.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +42,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/dist" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -48,9 +53,12 @@
     <property name="nodejs_package_manager_path" value="yarn" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/scss" />
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/dist" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/dist" />
+      <recent name="$PROJECT_DIR$/src/scss" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
@@ -80,6 +88,10 @@
       <workItem from="1579010386856" duration="17910000" />
       <workItem from="1579259593638" duration="257000" />
       <workItem from="1579260943823" duration="9132000" />
+      <workItem from="1579883381350" duration="2150000" />
+      <workItem from="1579886708756" duration="21291000" />
+      <workItem from="1580048530919" duration="19000" />
+      <workItem from="1580056988861" duration="1366000" />
     </task>
     <servers />
   </component>
@@ -103,21 +115,30 @@
       <screen x="1440" y="-157" width="1920" height="1057" />
     </state>
     <state x="2210" y="195" key="NewPhpClassDialog/0.23.1440.814/1440.-157.1920.1057@1440.-157.1920.1057" timestamp="1579266041161" />
-    <state x="574" y="367" key="NewPhpFileDialog" timestamp="1579278710319">
-      <screen x="0" y="23" width="1440" height="814" />
+    <state x="574" y="370" key="NewPhpFileDialog" timestamp="1580019079017">
+      <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state x="574" y="367" key="NewPhpFileDialog/0.23.1440.814/1440.-157.1920.1057@0.23.1440.814" timestamp="1579278710319" />
     <state x="2205" y="290" key="NewPhpFileDialog/0.23.1440.814/1440.-157.1920.1057@1440.-157.1920.1057" timestamp="1579266808638" />
     <state x="574" y="368" key="NewPhpFileDialog/0.23.1440.816@0.23.1440.816" timestamp="1579106756190" />
-    <state x="1883" y="144" key="com.intellij.ide.util.TipDialog" timestamp="1579260971240">
-      <screen x="1440" y="-157" width="1920" height="1057" />
+    <state x="574" y="370" key="NewPhpFileDialog/0.23.1440.822/1440.-157.1920.1057@0.23.1440.822" timestamp="1580010173074" />
+    <state x="574" y="370" key="NewPhpFileDialog/0.23.1440.823/1440.-157.1920.1057@0.23.1440.823" timestamp="1580019079017" />
+    <state x="332" y="257" key="com.intellij.ide.util.TipDialog" timestamp="1580057046354">
+      <screen x="0" y="23" width="1440" height="823" />
     </state>
-    <state x="332" y="255" key="com.intellij.ide.util.TipDialog/0.23.1440.816/1440.-157.1920.1057@0.23.1440.816" timestamp="1579010684266" />
+    <state x="332" y="255" key="com.intellij.ide.util.TipDialog/0.23.1440.816/1440.-157.1920.1057@0.23.1440.816" timestamp="1579887323487" />
     <state x="1883" y="144" key="com.intellij.ide.util.TipDialog/0.23.1440.816/1440.-157.1920.1057@1440.-157.1920.1057" timestamp="1579260971240" />
-    <state x="229" y="155" width="982" height="550" key="find.popup" timestamp="1579277505621">
-      <screen x="0" y="23" width="1440" height="814" />
+    <state x="332" y="257" key="com.intellij.ide.util.TipDialog/0.23.1440.823@0.23.1440.823" timestamp="1580057046354" />
+    <state x="507" y="354" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1580036549470">
+      <screen x="0" y="23" width="1440" height="823" />
+    </state>
+    <state x="507" y="354" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.823/1440.-157.1920.1057@0.23.1440.823" timestamp="1580036549470" />
+    <state x="229" y="157" width="982" height="557" key="find.popup" timestamp="1580044071378">
+      <screen x="0" y="23" width="1440" height="823" />
     </state>
     <state x="229" y="155" width="982" height="550" key="find.popup/0.23.1440.814/1440.-157.1920.1057@0.23.1440.814" timestamp="1579277505621" />
+    <state x="229" y="157" width="982" height="557" key="find.popup/0.23.1440.823@0.23.1440.823" timestamp="1580044071378" />
+    <state x="229" y="157" width="982" height="558" key="find.popup/0.23.1440.825/1440.-157.1920.1057@0.23.1440.825" timestamp="1580037027072" />
     <state x="2065" y="166" key="run.anything.popup" timestamp="1579264077138">
       <screen x="1440" y="-157" width="1920" height="1057" />
     </state>
