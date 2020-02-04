@@ -115,7 +115,7 @@ $posts = $db->query('SELECT p.*,c.category_name FROM posts as p LEFT JOIN catego
                     <?php foreach ($posts as $post): ?>
                         <div class="border-bottom">
                             <h6 class="bg-secondary text-center text-light px-3 py-2">
-                                <i class="far fa-calendar-alt mr-2"></i><?php echo htmlspecialchars($post['date'],ENT_QUOTES); ?>
+                                <i class="far fa-calendar-alt mr-2"></i><?php echo date('Y年m月d日',strtotime(htmlspecialchars($post['date'],ENT_QUOTES))); ?>
                             </h6>
                             <div class="p-3 pb-5">
                                 <div class="row justify-content-between">
@@ -123,8 +123,8 @@ $posts = $db->query('SELECT p.*,c.category_name FROM posts as p LEFT JOIN catego
                                         <div>
                                             <small>
                                                 <i class="far fa-clipboard mr-1"></i><?php echo htmlspecialchars($post['category_name'],ENT_QUOTES); ?></small><small class="ml-2">
-                                                <i class="far fa-clock mr-1"></i><?php echo htmlspecialchars($post['time'],ENT_QUOTES); ?>
-                                            </small>
+                                                <i class="far fa-clock mr-1"></i><?php echo date('G時i分',strtotime(htmlspecialchars($post['time'],ENT_QUOTES))); ?>
+                                             </small>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
