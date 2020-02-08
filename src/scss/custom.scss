@@ -37,6 +37,39 @@ a.text-light:hover {
   max-width: 420px;
 }
 
+// フラッシュメッセージ
+#js-flash{
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  top: 10%;
+  right: auto;
+  z-index: 10;
+}
+.fadeout {
+  animation : fadeOut 4s;
+  animation-fill-mode: both;
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+// ファイル選択画像アップロード
+#preview{
+  width: 200px;
+  img{
+    width: 100%;
+  }
+}
+
 @include media-breakpoint-down(xs){
   #logo{
     h1{

@@ -2,6 +2,11 @@
 session_start();
 require('dbconnect.php');
 
+// フラッシュメッセージ
+$flash = isset($_SESSION['flash']) ? $_SESSION['flash'] : array();
+unset($_SESSION['flash']);
+
+// ログイン状態の確認
 if (!empty($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
     // 現時刻の取得
     $date = date("Y-m-d");
@@ -11,11 +16,13 @@ if (!empty($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
     $users = $db->prepare('SELECT * FROM users WHERE id=?');
     $users->execute(array($_SESSION['id']));
     $user = $users->fetch();
+    $user_id = $user['id'];
 } else {
     header('Location:/');
     exit();
 }
 
+// 投稿処理
 if (!empty($_POST)) {
     $user = $user['id'];
     $category_id = (!empty($_POST['categoryRadio'])) ? $_POST['categoryRadio'] : NULL;
@@ -25,27 +32,52 @@ if (!empty($_POST)) {
     if (!empty($_POST["text"]) && $_POST["text"] !== '') {
         $post = $db->prepare('INSERT INTO posts SET user_id=:u_id,category_id=:c_id,text=:text,date=:date,time=:time,created_at=NOW(),updated_at=NOW()');
         $post->execute(array(
-            'u_id' => $user,
-            'c_id' => $category_id,
+            ':u_id' => $user,
+            ':c_id' => $category_id,
             ':text' => $text,
             ':date' => $date,
             ':time' => $time,
         ));
+
+        // 登録したレコードid取得
+        $id = $db->lastInsertId();
+
+        // 画像保存
+        $image = date('YmdHis') . $_FILES['img']['name'];
+        move_uploaded_file($_FILES['img']['tmp_name'],'./image/' . $image);
+        $media = $db->prepare('INSERT INTO media SET post_id=:p_id,media=:media,created_at=NOW(),updated_at=NOW()');
+        $media->execute(array(
+            ':p_id' => $id,
+            ':media' => $image,
+        ));
+
+        // 登録後のメッセージをセッション変数に格納（このやりかたブログに書く）
+        $_SESSION['flash'] = '登録しました';
+
         header('Location:create.php');
         exit();
     }
 }
 
-$posts = $db->query('SELECT p.*,c.category_name FROM posts as p LEFT JOIN category as c ON p.category_id=c.id ORDER BY p.created_at DESC LIMIT 5');
+$post = $db->prepare('SELECT p.*,c.category_name,m.media FROM posts as p LEFT JOIN category as c ON p.category_id=c.id LEFT JOIN media as m ON p.id=m.post_id WHERE p.user_id=:user_id ORDER BY p.created_at DESC LIMIT 5');
+$post->execute(array(
+    ':user_id' => $user_id,
+));
+$posts = $post->fetchAll();
 
 ?>
 <?php require('head.php'); ?>
 <body>
 <?php require('header.php'); ?>
+<?php if(!empty($flash)): ?>
+    <div id="js-flash" class="alert alert-success">
+        <?php echo $flash; ?>
+    </div>
+<?php endif; ?>
 <div class="container mt-5 pb-5">
     <div class="row">
         <div class="col-md-8">
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <div class="form-group mb-5">
                     <label class="h5"><i class="fas fa-utensils mr-2"></i>たべたもの</label>
                     <textarea class="form-control" name="text" placeholder="パンケーキ" rows="3"></textarea>
@@ -53,9 +85,10 @@ $posts = $db->query('SELECT p.*,c.category_name FROM posts as p LEFT JOIN catego
                 <div class="form-group mb-5">
                     <label class="h5"><i class="fas fa-camera mr-2"></i>たべもの画像</label>
                     <div class="d-block">
+                        <div id="preview" class="mb-1"></div>
                         <label class="d-inline-block btn btn-secondary text-light">
                             <i class="fas fa-plus-circle"></i>
-                            <input type="file" class="d-none" name="img">
+                            <input type="file" class="d-none" name="img" size="35" onChange="imgPreView(event)">
                         </label>
                     </div>
                 </div>
@@ -101,7 +134,7 @@ $posts = $db->query('SELECT p.*,c.category_name FROM posts as p LEFT JOIN catego
                                    value="<?php echo htmlspecialchars($time, ENT_QUOTES); ?>">
                         </div>
                         <div class="col-md-4 mt-3 mt-md-0">
-                            <button class="btn btn-secondary btn-block text-light" type="submit">今の日時を設定</button>
+                            <button id="today" class="btn btn-secondary btn-block text-light" type="button">今の日時を設定</button>
                         </div>
                     </div>
                 </div>
@@ -119,7 +152,7 @@ $posts = $db->query('SELECT p.*,c.category_name FROM posts as p LEFT JOIN catego
                             </h6>
                             <div class="p-3 pb-5">
                                 <div class="row justify-content-between">
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div>
                                             <small>
                                                 <i class="far fa-clipboard mr-1"></i><?php echo htmlspecialchars($post['category_name'],ENT_QUOTES); ?></small><small class="ml-2">
@@ -127,24 +160,29 @@ $posts = $db->query('SELECT p.*,c.category_name FROM posts as p LEFT JOIN catego
                                              </small>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <form action="edit.php" method="POST">
-                                            <input type="hidden" name="post_id" value="<?php echo htmlspecialchars($post['id'],ENT_QUOTES); ?>">
-                                            <button class="btn btn-primary btn-block text-light" type="submit">編集する</button>
-                                        </form>
+                                    <div class="col-md-7">
+                                        <div class="d-flex justify-content-end">
+                                            <form action="edit.php" method="POST">
+                                                <input type="hidden" name="post_id" value="<?php echo htmlspecialchars($post['id'],ENT_QUOTES); ?>">
+                                                <button class="btn btn-primary btn-block text-light" type="submit">編集する</button>
+                                            </form>
+                                            <form action="delete.php" method="POST" class="ml-1">
+                                                <input type="hidden" name="post_id" value="<?php echo htmlspecialchars($post['id'],ENT_QUOTES); ?>">
+                                                <button class="btn btn-secondary btn-block text-light" type="submit">削除する</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="note-area mt-2">
                                     <?php echo nl2br(htmlspecialchars($post['text'],ENT_QUOTES)); ?>
                                 </div>
+                                <?php if(!empty($post['media'])): ?>
                                 <ul class="list-inline m-0 mt-3">
                                     <li class="list-inline-item">
-                                        <img src="https://placehold.jp/80x80.png">
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <img src="https://placehold.jp/80x80.png">
+                                        <img src="/image/<?php echo htmlspecialchars($post['media'],ENT_QUOTES); ?>">
                                     </li>
                                 </ul>
+                                <?php endif; ?>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -158,3 +196,51 @@ $posts = $db->query('SELECT p.*,c.category_name FROM posts as p LEFT JOIN catego
     </div>
 </div>
 <?php require('footer.php'); ?>
+<script>
+    // フラッシュメッセージ
+    const flash = document.getElementById('js-flash')
+    window.addEventListener('DOMContentLoaded',() => {
+        flash.classList.add('fadeout')
+        setTimeout(() => {
+            flash.style.display = "none"
+        },4000)
+    })
+
+    // ファイル選択画像プレビュー
+    const imgPreView = event => {
+        const file = event.target.files[0]
+        const reader = new FileReader()
+        const preview = document.getElementById("preview")
+        const previewImage = document.getElementById("previewImage")
+
+        if(previewImage != null) {
+            preview.removeChild(previewImage)
+        }
+        reader.onload = () => {
+            const img = document.createElement("img")
+            img.setAttribute("src", reader.result)
+            img.setAttribute("id", "previewImage")
+            preview.appendChild(img)
+        };
+
+        reader.readAsDataURL(file)
+    }
+
+    // 現時刻の取得・設定
+    const Today = document.getElementById("today")
+    Today.addEventListener('click',() => {
+        const now = new Date()
+        const Year = now.getFullYear()
+        const Month = ("0" + (now.getMonth() + 1)).slice(-2)
+        const Day = ("0" + now.getDate()).slice(-2)
+        const Hour = now.getHours()
+        const Min = now.getMinutes()
+
+        const date = document.getElementById("date")
+        const time = document.getElementById("time")
+
+        date.value = Year + '-' + Month + '-' + Day;
+        time.value = Hour + ':' + Min;
+    })
+
+</script>

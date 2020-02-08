@@ -2,15 +2,16 @@
 session_start();
 require('dbconnect.php');
 
+// ログイン状態の確認
 if (!empty($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
     // 現時刻の取得
     $date = date("Y-m-d");
     $time = date("H:i");
 
     $_SESSION['time'] = time();
-    $users = $db->prepare('SELECT * FROM users WHERE id=?');
-    $users->execute(array($_SESSION['id']));
-    $user = $users->fetch();
+//    $users = $db->prepare('SELECT * FROM users WHERE id=?');
+//    $users->execute(array($_SESSION['id']));
+//    $user = $users->fetch();
 } else {
     header('Location:/');
     exit();
@@ -18,9 +19,9 @@ if (!empty($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
 
 if (!empty($_POST)) {
     if (!empty($_POST["post_id"]) && $_POST["post_id"] !== '') {
-        $posts = $db->prepare('SELECT p.*,c.category_name FROM posts as p LEFT JOIN category as c ON p.category_id=c.id WHERE p.id=?');
+        $posts = $db->prepare('SELECT p.*,c.category_name,m.media FROM posts as p LEFT JOIN category as c ON p.category_id=c.id  LEFT JOIN media as m ON p.id=m.post_id WHERE p.id=:p_id');
         $posts->execute(array(
-            $_POST["post_id"],
+            ':p_id' => $_POST["post_id"],
         ));
         $post = $posts->fetch();
     }
@@ -55,10 +56,16 @@ if (!empty($_POST)) {
                 <div class="form-group mb-5">
                     <label class="h5"><i class="fas fa-camera mr-2"></i>たべもの画像</label>
                     <div class="d-block">
+                        <?php if(!empty($post['media'])): ?>
+                        <div class="mb-1">
+                            <img src="/image/<?php echo htmlspecialchars($post['media'],ENT_QUOTES); ?>">
+                        </div>
+                        <?php else: ?>
                         <label class="d-inline-block btn btn-secondary text-light">
                             <i class="fas fa-plus-circle"></i>
                             <input type="file" class="d-none" name="img">
                         </label>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="form-group mb-5">
