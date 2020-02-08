@@ -166,7 +166,7 @@ $posts = $post->fetchAll();
                                                 <input type="hidden" name="post_id" value="<?php echo htmlspecialchars($post['id'],ENT_QUOTES); ?>">
                                                 <button class="btn btn-primary btn-block text-light" type="submit">編集する</button>
                                             </form>
-                                            <form action="delete.php" method="POST" class="ml-1">
+                                            <form action="delete.php" method="POST" class="ml-1" onsubmit="return submitChk()">
                                                 <input type="hidden" name="post_id" value="<?php echo htmlspecialchars($post['id'],ENT_QUOTES); ?>">
                                                 <button class="btn btn-secondary btn-block text-light" type="submit">削除する</button>
                                             </form>
@@ -243,4 +243,9 @@ $posts = $post->fetchAll();
         time.value = Hour + ':' + Min;
     })
 
+
+    const submitChk = () => {
+        const flg = confirm("削除してもよろしいですか？")
+        return flg
+    }
 </script>
