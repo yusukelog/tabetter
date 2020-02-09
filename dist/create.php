@@ -233,8 +233,8 @@ $posts = $post->fetchAll();
         const Year = now.getFullYear()
         const Month = ("0" + (now.getMonth() + 1)).slice(-2)
         const Day = ("0" + now.getDate()).slice(-2)
-        const Hour = now.getHours()
-        const Min = now.getMinutes()
+        const Hour = ("0" + now.getHours()).slice(-2)
+        const Min = ("0" + now.getMinutes()).slice(-2)
 
         const date = document.getElementById("date")
         const time = document.getElementById("time")

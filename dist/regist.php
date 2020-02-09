@@ -29,8 +29,9 @@ if (!empty($_POST)) {
 
     if (empty($error)) {
         $_SESSION['regist'] = $_POST;
-        header('Location:regist_confirm.php');
-        exit();
+        var_dump($_SESSION['regist']);
+//        header('Location:regist_confirm.php');
+//        exit();
     }
 }
 
