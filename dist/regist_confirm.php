@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-//if(!isset($_SESSION['regist'])){
-//    header('Location:regist.php');
-//    exit();
-//}
+if(!isset($_SESSION['regist'])){
+    header('Location:regist.php');
+    exit();
+}
 
 
 require('dbconnect.php');
