@@ -43,13 +43,15 @@ if (!empty($_POST)) {
         $id = $db->lastInsertId();
 
         // 画像保存
-        $image = date('YmdHis') . $_FILES['img']['name'];
-        move_uploaded_file($_FILES['img']['tmp_name'],'./image/' . $image);
-        $media = $db->prepare('INSERT INTO media SET post_id=:p_id,media=:media,created_at=NOW(),updated_at=NOW()');
-        $media->execute(array(
-            ':p_id' => $id,
-            ':media' => $image,
-        ));
+        if (!empty($_FILES['img']['name'])){
+            $image = date('YmdHis') . $_FILES['img']['name'];
+            move_uploaded_file($_FILES['img']['tmp_name'],'./image/' . $image);
+            $media = $db->prepare('INSERT INTO media SET post_id=:p_id,media=:media,created_at=NOW(),updated_at=NOW()');
+            $media->execute(array(
+                ':p_id' => $id,
+                ':media' => $image,
+            ));
+        }
 
         // 登録後のメッセージをセッション変数に格納（このやりかたブログに書く）
         $_SESSION['flash'] = '登録しました';
